@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20170903161713) do
   create_table "lists", force: :cascade do |t|
     t.string "name"
     t.integer "project_id"
+    t.integer "positionX"
+    t.integer "positionY"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

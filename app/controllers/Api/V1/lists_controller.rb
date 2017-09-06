@@ -1,8 +1,9 @@
 class Api::V1::ListsController < ApplicationController
 
   def index
-    lists = List.all
-    render json: lists
+    project = Project.find_by(id: params[:project_id])
+    filteredList = project.lists
+    render json: filteredList
   end
 
   def create
@@ -33,7 +34,7 @@ class Api::V1::ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:name, :project_id)
+    params.require(:list).permit(:name, :project_id, :positionX, :positionY)
   end
 
 end

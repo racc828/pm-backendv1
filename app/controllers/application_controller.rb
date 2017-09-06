@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
 
-  private
+  #private
 
   def current_user
-    current_user ||= User.find_by(id: user_id)
+    User.find_by(id: self.user_id)
   end
 
   def user_id

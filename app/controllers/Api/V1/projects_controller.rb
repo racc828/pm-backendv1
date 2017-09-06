@@ -1,8 +1,17 @@
 class Api::V1::ProjectsController < ApplicationController
 
   def index
-    projects = Project.all
-    render json: projects
+    user = current_user
+    projects = user.projects + user.participating_projects
+    projects_with_list = projects.map do |project|
+      {
+        id:project.id,
+        name:project.name,
+        user_id:project.user.id,
+        lists:project.lists
+      }
+    end
+    render json: projects_with_list
   end
 
   def create
@@ -14,7 +23,13 @@ class Api::V1::ProjectsController < ApplicationController
 
   def show
     project = Project.find_by(id: params[:id])
-    render json: project
+    projectJson = {
+      id:project.id,
+      name:project.name,
+      user_id:project.user.id,
+      lists:project.lists
+    }
+    render json: projectJson
   end
 
   def update
